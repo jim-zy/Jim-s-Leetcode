@@ -1,0 +1,28 @@
+# 209 CN MinSubArrayLen
+# https://leetcode.cn/problems/minimum-size-subarray-sum/
+# First Solution: Violent
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        ans = float('inf')
+        for i in range(len(nums)):
+            sumnum = 0
+            for j in range(i,len(nums)):
+                sumnum += nums[j]
+                if sumnum >= target:
+                    ans = min(ans,j-i+1)
+                    break
+        return ans if ans != float('inf') else 0
+
+# Second Solution: Slide Window
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        ans = float('inf')
+        left = 0
+        sumnum = 0
+        for j in range(len(nums)):
+            sumnum += nums[j]
+            while sumnum >=target:
+                ans = min(ans,j - left + 1)
+                sumnum -= nums[left]
+                left += 1
+        return ans if ans != float('inf') else 0
