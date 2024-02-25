@@ -1,0 +1,46 @@
+class Listnode:
+    def __init__(self,val,next=None):
+        self.val = val
+        self.next = next
+        
+class MyLinkedList:
+    def __init__(self):
+        self.dummyhead = Listnode(0)
+        self.size = 0
+
+    def get(self, index: int) -> int:
+        if index < 0 or index >= self.size:
+            return -1
+        current = self.dummyhead
+        for i in range(index):
+            current = current.next
+        return current.next.val
+
+    def addAtHead(self, val: int) -> None:
+        self.dummyhead.next = Listnode(val,self.dummyhead.next)
+        self.size += 1
+
+    def addAtTail(self, val: int) -> None:
+        current = self.dummyhead
+        while current.next:
+            current = current.next
+        current.next = Listnode(val,None)
+        self.size += 1
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        if index < 0 or index > self.size:
+            return None
+        current = self.dummyhead
+        for i in range(index):
+            current = current.next
+        current.next = Listnode(val,current.next)
+        self.size += 1
+
+    def deleteAtIndex(self, index: int) -> None:
+        if index < 0 or index >= self.size:
+            return None
+        current = self.dummyhead
+        for i in range(index):
+            current = current.next
+        current.next = current.next.next
+        self.size -= 1
